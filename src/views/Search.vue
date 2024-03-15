@@ -1,61 +1,64 @@
 <template>
-  <h1 class="text-h5 mb-1">
-    {{ $t('Search.Title') }}
-    <v-progress-circular v-if="loading" indeterminate :size="30" />
-  </h1>
+  <v-row align="center" justify="center">
+    <v-col cols="12" sm="10" md="8" lg="6">
+      <h1 class="text-h5 mb-1">
+        {{ $t('Search.Title') }}
+        <v-progress-circular v-if="loading" indeterminate :size="30"></v-progress-circular>
+      </h1>
+      <br/>
+      <v-row>
+        <v-col>
+          <v-form @submit.prevent="search">
+            <v-text-field
+                v-model="productSearchForm.q"
+                :label="$t('Search.ProductBarcode')"
+                type="number"
+                inputmode="numeric"
+                :prepend-inner-icon="formFilled ? 'mdi-barcode' : 'mdi-barcode-scan'"
+                append-inner-icon="mdi-magnify"
+                @click:prepend-inner="showBarcodeScanner"
+                @click:append-inner="search"
+                :rules="[fieldRequired]"
+                :loading="loading"
+                required>
+            </v-text-field>
+          </v-form>
+        </v-col>
+      </v-row>
 
-  <v-row>
-    <v-col>
-      <v-form @submit.prevent="search">
-        <v-text-field
-          ref="searchInput"
-          v-model="productSearchForm.q"
-          :label="$t('Search.ProductBarcode')"
-          type="number"
-          inputmode="numeric"
-          :rules="[fieldRequired]"
-          hide-details="auto"
-          :loading="loading"
-          required
-        >
-          <template #prepend-inner>
-            <v-icon :icon="formFilled ? 'mdi-barcode' : 'mdi-barcode-scan'" @click="showBarcodeScannerDialog" />
-          </template>
-          <template #append-inner>
-            <v-icon icon="mdi-magnify" @click="search" />
-          </template>
-        </v-text-field>
-      </v-form>
+      <p v-if="productTotal === 0" class="text-red">
+        <i>{{ $t('ProductDetail.ProductNotFound') }}</i>
+      </p>
+
+      <v-row v-if="productTotal > 0" class="mt-0">
+        <v-col cols="12" sm="6" md="4" v-for="product in productList" :key="product">
+          <ProductCard
+              :product="product"
+              :latestPrice="product.latest_price"
+              elevation="1"
+              height="100%"
+          ></ProductCard>
+        </v-col>
+      </v-row>
+
+      <BarcodeScanner
+          v-if="barcodeScanner"
+          v-model="barcodeScanner"
+          @barcode="setProductCode($event)"
+          @close="barcodeScanner = false"
+      ></BarcodeScanner>
     </v-col>
   </v-row>
-
-  <p v-if="productTotal === 0" class="text-red">
-    <i>{{ $t('ProductDetail.ProductNotFound') }}</i>
-  </p>
-
-  <v-row v-if="productTotal > 0" class="mt-0">
-    <v-col v-for="product in productList" :key="product" cols="12" sm="6" md="4">
-      <ProductCard :product="product" :hideProductBarcode="true" :latestPrice="product.latest_price" elevation="1" height="100%" />
-    </v-col>
-  </v-row>
-
-  <BarcodeScannerDialog
-    v-if="barcodeScannerDialog"
-    v-model="barcodeScannerDialog"
-    @barcode="setProductCode($event)"
-    @close="barcodeScannerDialog = false"
-  />
 </template>
 
 <script>
-import { defineAsyncComponent } from 'vue'
-import constants from '../constants'
 import api from '../services/api'
+import { defineAsyncComponent } from 'vue'
 
 export default {
   components: {
-    ProductCard: defineAsyncComponent(() => import('../components/ProductCard.vue')),
-    BarcodeScannerDialog: defineAsyncComponent(() => import('../components/BarcodeScannerDialog.vue'))
+    'ProductCard': defineAsyncComponent(() => import('../components/ProductCard.vue')),
+    'BarcodeScanner': defineAsyncComponent(() => import('../components/BarcodeScanner.vue'))
   },
   data() {
     return {
@@ -66,7 +69,7 @@ export default {
       productTotal: null,
       loading: false,
       // barcode scanner
-      barcodeScannerDialog: false,
+      barcodeScanner: false,
     }
   },
   computed: {
@@ -74,36 +77,21 @@ export default {
       return Object.values(this.productSearchForm).every(x => !!x)
     }
   },
-  watch: {
-    $route (newRoute, oldRoute) { // only called when query changes to avoid having an API call when the path changes
-      if (oldRoute.path === newRoute.path && JSON.stringify(oldRoute.query) !== JSON.stringify(newRoute.query)) {
-        this.getProducts()
-      }
-    }
-  },
-  mounted() {
-    this.productSearchForm.q = this.$route.query[constants.QUERY_PARAM] || ''
-    if (this.productSearchForm.q) {
-      this.getProducts()
-    }
-  },
   methods: {
     fieldRequired(v) {
       return !!v
     },
-    showBarcodeScannerDialog() {
-      this.$refs.searchInput.blur()
-      this.barcodeScannerDialog = true
+    showBarcodeScanner() {
+      this.barcodeScanner = true
     },
     setProductCode(code) {
       this.productSearchForm.q = code
       this.search()
     },
     search() {
-      this.$refs.searchInput.blur()
       this.productList = []
       this.productTotal = null
-      this.$router.push({ query: { ...this.$route.query, [constants.QUERY_PARAM]: this.productSearchForm.q } })
+      this.getProducts()
     },
     getProducts() {
       this.loading = true
@@ -118,7 +106,7 @@ export default {
         })
     },
     getProductLatestPrices() {
-      this.productList.forEach((product) => {
+      this.productList.forEach((product, index) => {
         if (product.price_count && !product.latest_price) {
           this.getPrices(product)
         }
