@@ -1,5 +1,5 @@
 <template>
-  <v-footer class="bg-grey-lighten-1" style="max-height: 20%">
+  <v-footer>
     <v-row>
       <v-col cols="12" md="6" align="center">
         <i18n-t keypath="Footer.TagLine" tag="span">
@@ -32,6 +32,14 @@
     </v-row>
   </v-footer>
 </template>
+
+<style scoped>
+.v-footer{
+  max-height: 20%;
+  background-color: #1E1E24;
+  color: #fff
+}
+</style>
 
 <script>
 import { defineAsyncComponent } from 'vue'
