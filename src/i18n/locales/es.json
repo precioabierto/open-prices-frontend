@@ -123,7 +123,7 @@
 		"OrderPriceASC": "Precio",
 		"OrderPriceCreatedDESC": "Fecha de agregación",
 		"OrderPriceDateDESC": "Fecha del precio",
-		"SignInOFFAccount": "Inicia sesión con tu cuenta de {url}",
+		"SignInOFFAccount": "Inicio de sesión temporalmente limitado",
 		"Source": "Fuente",
 		"Yes": "Sí",
 		"No": "No",
@@ -160,7 +160,7 @@
 		"SettingsUpdated": "¡Ajustes actualizados!",
 		"TodayPriceStat": "Hoy no se han añadido precios | Hoy se han añadido {todayPriceNumber} precios nuevos | ¡Hoy se han añadido {todayPriceNumber} precios nuevos!",
 		"Welcome": {
-			"Subtitle": "Una base de datos abierta y colaborativa de precios de alimentos 🏷🍊💲",
+			"Subtitle": "Una base de datos abierta y colaborativa de precios de alimentos \uD83D\uDED2\uD83E\uDE99",
 			"Title": "¡Bienvenido a {name}!"
 		}
 	},

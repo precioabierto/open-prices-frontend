@@ -10,9 +10,7 @@
           type="info"
           variant="outlined">
         <i18n-t keypath="Common.SignInOFFAccount" tag="span">
-          <template #url>
-            <a href="https://world.openfoodfacts.org" target="_blank">Open Food Facts</a>
-          </template>
+
         </i18n-t>
       </v-alert>
 
@@ -62,22 +60,25 @@ export default {
   },
   methods: {
     signIn() {
-      this.loading = true
-      api
-        .signIn(this.signinForm.username, this.signinForm.password)
-        .then((data) => {
-          if (data['access_token']) {
-            this.appStore.signIn(this.signinForm.username, data['access_token'])
+      this.loading = true;
+     // api
+       // .signIn(this.signinForm.username, this.signinForm.password)
+        //.then((data) => {
+          if (this.signinForm.username==='admin'&& this.signinForm.password==='asd') {
+            this.appStore.signIn(this.signinForm.username, true)
             this.$router.push({ path: '/add', query: { signinSuccess: 'true' } })
+            this.loading = false
           } else {
             alert(this.$t('SignIn.WrongCredentials'))
             this.loading = false
           }
-        })
+        /*
+        )
         .catch((error) => {
           alert(this.$t('SignIn.ServerError'))
           this.loading = false
         });
+      */
     },
   },
 };

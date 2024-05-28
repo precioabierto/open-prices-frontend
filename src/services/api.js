@@ -1,7 +1,7 @@
 import { useAppStore } from '../store'
 import constants from '../constants'
 
-const OPENFOODFACTS_PRODUCT_URL = 'https://world.openfoodfacts.org/api/v2/product'
+const OPENFOODFACTS_PRODUCT_URL = 'https://precioabierto.org/api/v1/product'
 
 
 export default {

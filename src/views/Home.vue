@@ -28,9 +28,6 @@
       <v-card>
           <template v-slot:subtitle v-if="!username" >
             <i18n-t keypath="Common.SignInOFFAccount" tag="span">
-              <template #url>
-                <a href="https://world.openfoodfacts.org" target="_blank">Open Food Facts</a>
-              </template>
             </i18n-t>
           </template>
         <v-btn

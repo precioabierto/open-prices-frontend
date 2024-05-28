@@ -58,7 +58,7 @@ import { defineAsyncComponent } from 'vue'
 export default {
   components: {
     'ProductCard': defineAsyncComponent(() => import('../components/ProductCard.vue')),
-    'BarcodeScanner': defineAsyncComponent(() => import('../components/BarcodeScanner.vue'))
+    'BarcodeScanner': defineAsyncComponent(() => import('../components/BarcodeScannerDialog.vue'))
   },
   data() {
     return {

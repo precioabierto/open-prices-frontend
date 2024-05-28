@@ -69,9 +69,6 @@ export const useAppStore = defineStore('app', {
     setFavoriteCurrencies(currencies) {
       this.user.favorite_currencies = currencies
     },
-    setLastCurrencyUsed(currency) {
-      this.user.last_currency_used = currency
-    },
     setProofTotal(proofTotal) {
       this.user.proofTotal = proofTotal
     },

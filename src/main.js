@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
-import VueMatomo from 'vue-matomo'
+//import VueMatomo from 'vue-matomo'
 import './assets/main.css'
 import App from './App.vue'
 import router from './router.js'
@@ -17,10 +17,10 @@ app.use(pinia)
 app.use(router)
 app.use(vuetify)
 app.use(i18n)
-app.use(VueMatomo, {
+/*app.use(VueMatomo, {
   host: 'https://analytics.openfoodfacts.org',
   siteId: 13,
-})
+})*/
 const locale = localeManager.guessDefaultLocale()
 localeManager.changeLanguage(locale)
 app.mount('#app')

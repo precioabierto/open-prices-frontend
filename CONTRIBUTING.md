@@ -1,4 +1,10 @@
-# Contributing to Open Prices Frontend
+
+
+# Contributir a Precio Abierto
+
+Para colaborar con la construcción del proyecto (solo Argentina) hemos creado un grupo de [telegram](https://https://t.me/+Wv-R9xnUSPA0OWRh) , si en su lugar quieres contribuir al proyecto de la fundación OFF sigue los links del mensaje original (solo inglés y francés)    
+
+# Mensaje original:
 
 ## Installation
 

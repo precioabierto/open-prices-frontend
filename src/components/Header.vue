@@ -3,8 +3,7 @@
     <v-app-bar-nav-icon @click.stop="showDrawerMenu = !showDrawerMenu"></v-app-bar-nav-icon>
     <v-app-bar-title>
       <span style="cursor:pointer" @click="$router.push('/')">
-        <img src="/favicon.svg" height="28" width="28" style="vertical-align:bottom">
-        {{ APP_NAME }}
+        <h4><img src="/pa-logo-192.png" height="32" width="32" style="vertical-align:bottom">  {{ APP_NAME }}</h4>
       </span>
     </v-app-bar-title>
     <template v-if="!username" v-slot:append>
@@ -34,8 +33,8 @@
 </template>
 
 <style scoped>
-.v-app-bar {
-  background-color: #ff8e00;
+  .v-app-bar.v-toolbar {
+  background-color: #75AADB;
 }
 </style>
 
