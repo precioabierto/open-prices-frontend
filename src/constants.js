@@ -10,7 +10,7 @@ const OPF_ICON = 'mdi-bookshelf'
 export default {
   APP_NAME: 'Precio Abierto',
   OFF_NAME: OFF_NAME,
-  OFF_URL: '',
+  OFF_URL: 'https://world.openfoodfacts.org',
   OFF_ICON: OFF_ICON,
   OFF_WIKI_URL: 'https://wiki.openfoodfacts.org/Main_Page',
   OFF_WIKI_APP_URL: 'https://wiki.openfoodfacts.org/Project:Open-Prices',
